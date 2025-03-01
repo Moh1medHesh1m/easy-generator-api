@@ -1,26 +1,26 @@
-# Use Node.js 20
+# Use an official Node.js runtime as a base image
 FROM node:20-alpine
 
-# Set working directory
+# Install Redis inside the same container
+RUN apk add --no-cache redis
+
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and yarn.lock first (for caching)
+# Copy package.json and yarn.lock first for caching
 COPY package.json yarn.lock ./
 
 # Install dependencies
 RUN yarn install --production
 
-# Copy the rest of the application (including src/)
+# Copy the rest of the application
 COPY . .
-
-# Rebuild bcrypt inside Docker
-RUN yarn remove bcrypt && yarn add bcrypt
 
 # Build the NestJS app
 RUN yarn build
 
-# Expose the port
-EXPOSE 3000
+# Expose the application and Redis ports
+EXPOSE 3000 6379
 
-# Start the NestJS app
-CMD ["node", "dist/main.js"]
+# Start both Redis and the NestJS app
+CMD redis-server --daemonize no & node dist/main.js
