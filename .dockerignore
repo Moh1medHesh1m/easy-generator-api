@@ -1,0 +1,54 @@
+# Node modules and dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs
+*.log
+*.gz
+
+# Ignore local environment files
+.env
+.env.local
+.env.*.local
+
+# Build and cache folders
+dist
+.cache
+.vscode
+
+# Docker itself
+Dockerfile
+docker-compose.yml
+
+# Git files
+.git
+.gitignore
+# Node modules and dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs
+*.log
+*.gz
+
+# Ignore local environment files
+.env
+.env.local
+.env.*.local
+
+# Build and cache folders
+dist
+.cache
+.vscode
+
+# Docker itself
+Dockerfile
+docker-compose.yml
+
+# Git files
+.git
+.gitignore
