@@ -8,10 +8,7 @@ import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { MailService } from '@sendgrid/mail';
 import { RedisService } from '../utils/services/redis.service';
-import { WinstonModule } from 'nest-winston';
-import * as winston from 'winston';
 
 @Module({
   imports: [
@@ -34,7 +31,6 @@ import * as winston from 'winston';
     LocalStrategy,
     JwtStrategy,
     AuthService,
-    MailService,
     RedisService
   ],
   controllers: [AuthController],
