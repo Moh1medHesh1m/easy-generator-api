@@ -29,4 +29,4 @@ RUN yarn build
 EXPOSE 3000 6379
 
 # Start both Redis and the NestJS app
-CMD sh -c "redis-server --daemonize no && node dist/main.js"
+CMD redis-server --daemonize no & node dist/main.js
