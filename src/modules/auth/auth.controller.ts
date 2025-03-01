@@ -20,6 +20,17 @@ export class AuthController {
   @ApiOperation({ summary: 'Register a new user', description: 'Registers a new user with provided details.' })
   @ApiResponse({ status: 201, description: 'User successfully registered.' })
   @ApiResponse({ status: 400, description: 'Bad Request. Validation failed.' })
+  @ApiBody({
+    description: 'User registration payload',
+    required: true,
+    schema: {
+      example: {
+        name: 'John Doe',
+        email: 'johndoe@example.com',
+        password: 'StrongPass@123'
+      }
+    }
+  })
   async register(@Body() userData: RegisterDto) {
     return this.userService.registerUserDto(userData);
   }

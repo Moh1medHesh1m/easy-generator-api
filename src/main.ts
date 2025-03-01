@@ -14,10 +14,19 @@ async function bootstrap() {
 
   // Setup Swagger
   const configSwagger = new DocumentBuilder()
-    .setTitle('API Documentation')
-    .setDescription('API documentation for authentication system')
+    .setTitle('Easy Generator API')
+    .setDescription('API documentation for Easy Generator')
     .setVersion('1.0')
-    .addBearerAuth() // Enable JWT authentication
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description:
+          'Enter **only** the token here. Do not include "Bearer ..." prefix.',
+      },
+      'access-token', // Name for the security scheme
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, configSwagger);
