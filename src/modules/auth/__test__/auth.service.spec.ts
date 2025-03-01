@@ -10,6 +10,8 @@ import { MockHashService } from '../../../modules/utils/services/__test__/__mock
 import { MockConfigService } from '../../../modules/utils/services/__test__/__mocks__/config.service.mock';
 import { userStub } from '../../../modules/user/__test__/stubs/user.stub';
 import { UserDocument } from '../../../modules/user/schemas/user.schema';
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { Logger } from 'winston';
 
 describe('auth service', () => {
   let usersService: UserService;
@@ -17,6 +19,8 @@ describe('auth service', () => {
   let hashService: HashService;
   let configService: ConfigService;
   let authService: AuthService;
+  let winstonService: Logger;
+
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
@@ -37,6 +41,19 @@ describe('auth service', () => {
           provide: ConfigService,
           useClass: MockConfigService,
         },
+        {
+          provide: ConfigService,
+          useClass: MockConfigService,
+        },
+        {
+          provide: WINSTON_MODULE_PROVIDER,
+          useValue: {
+            info: jest.fn(),
+            error: jest.fn(),
+            warn: jest.fn(),
+            debug: jest.fn(),
+          },
+        }
       ],
     }).compile();
 
@@ -45,6 +62,8 @@ describe('auth service', () => {
     jwtService = moduleRef.get<JwtService>(JwtService);
     configService = moduleRef.get<ConfigService>(ConfigService);
     authService = moduleRef.get<AuthService>(AuthService);
+    winstonService = moduleRef.get<Logger>(WINSTON_MODULE_PROVIDER);
+
   });
   beforeEach(() => {
     jest.clearAllMocks();

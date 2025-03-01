@@ -9,13 +9,16 @@ import { UserRepository } from '../user.repository';
 import { UserService } from '../user.service';
 import { userStub } from './stubs/user.stub';
 import { MockUserRepository } from './__mocks__/user.repository.mock';
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { Logger } from 'winston';
 
 describe('auth service', () => {
   let userService: UserService;
   let userRepository: UserRepository;
-
   let hashService: HashService;
   let configService: ConfigService;
+  let winstonService: Logger;
+
   beforeAll(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
@@ -32,12 +35,23 @@ describe('auth service', () => {
           provide: ConfigService,
           useClass: MockConfigService,
         },
+        {
+          provide: WINSTON_MODULE_PROVIDER, 
+          useValue: {
+            info: jest.fn(),
+            error: jest.fn(),
+            warn: jest.fn(),
+            debug: jest.fn(),
+          },
+        },
       ],
     }).compile();
     userRepository = moduleRef.get<UserRepository>(UserRepository);
     hashService = moduleRef.get<HashService>(HashService);
     userService = moduleRef.get<UserService>(UserService);
     configService = moduleRef.get<ConfigService>(ConfigService);
+    winstonService = moduleRef.get<Logger>(WINSTON_MODULE_PROVIDER);
+
   });
   afterEach(() => {
     jest.clearAllMocks();
@@ -56,7 +70,9 @@ describe('auth service', () => {
       const createSpy = jest
         .spyOn(userRepository, 'create')
         .mockImplementation(async () => userStub() as UserDocument);
-      const { name, email, _id } = await userService.registerUserDto(userStub());
+      const { name, email, _id } = await userService.registerUserDto(
+        userStub(),
+      );
       const expected = { _id, name, email };
       const { password, ...restObject } = userStub();
       expect(expected).toEqual({ ...restObject });
