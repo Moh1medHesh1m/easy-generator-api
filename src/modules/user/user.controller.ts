@@ -10,11 +10,11 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from './schemas/user.schema';
 
 @ApiTags('User') 
-@ApiBearerAuth() 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @ApiBearerAuth('access-token') 
   @UseGuards(JwtAuthGuard)
   @Get('user-info')
   @ApiOperation({ summary: 'Get user information', description: 'Returns the authenticated user information' })
