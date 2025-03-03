@@ -7,7 +7,7 @@ export type UserDocument = User & Document;
 export class User extends CommonSchema {
   _id?: Types.ObjectId;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   name: string;
 
   @Prop({ required: true, unique: true })
