@@ -6,9 +6,10 @@ services:
     container_name: my-app
     restart: always
     ports:
-      - "3000:3000"
+      - "3200:3200"
     depends_on:
       - redis
+      - mongo
     env_file:
       - .env
     networks:
@@ -23,6 +24,23 @@ services:
     networks:
       - my-network
 
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - my-network
+
 networks:
   my-network:
     driver: bridge
+
+volumes:
+  mongo-data:

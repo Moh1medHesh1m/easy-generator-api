@@ -22,9 +22,129 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## 📌 Description
+The **Easy Generator API** is a production-ready backend built using **NestJS**, providing **secure authentication**, **efficient data handling**, and **containerized deployment**.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+It features **JWT-based authentication**, **unit testing**, **Redis caching**, and **MongoDB integration**.
+
+### 🚀 Features
+- **Modular Architecture** → Scalable NestJS module-based structure.
+- **Authentication with Passport.js** → Secure JWT-based authentication.
+- **Unit Testing with Jest** → Ensures reliability and correctness.
+- **Redis Caching** → Optimized session handling and token blacklisting.
+- **MongoDB Integration** → Uses Mongoose ORM for efficient data management.
+- **Input Validation** → Request validation using `class-validator`.
+- **Logging with Winston** → Centralized logging for debugging and monitoring.
+- **Environment Configuration** → Uses `@nestjs/config` for easy management.
+- **Docker Support** → Includes `Dockerfile` and `docker-compose` for containerization.
+
+---
+
+## 📌 Environment Variables
+The application relies on environment variables for configuration. The most important variables include:
+
+### **Server Configuration**
+- `PORT`
+
+### **Database Configuration**
+- `DATABASE_URL`
+
+### **Authentication**
+- `JWT_SECRET`
+- `JWT_EXPIRATION`
+
+### **Redis Configuration**
+- `REDIS_HOST`
+- `REDIS_PORT`
+- `REDIS_PASSWORD`
+
+Refer to `.env.example` for required configurations.
+
+---
+
+## 📌 Authentication with Passport Strategy
+The API uses **Passport.js strategies** for authentication:
+
+- **JWT Strategy** → Secure authentication via JWT tokens.
+- **Local Strategy** → Handles login with email and password.
+
+This ensures **secure authentication and session handling**.
+
+---
+
+## 📌 Testing
+The project includes **unit tests and e2e tests** to ensure functionality.
+
+---
+
+## 📌 Docker Support & Commands
+The project supports **Docker containerization** using:
+
+- **Dockerfile** → Builds a self-contained image of the application.
+- **docker-compose.yml** → Sets up Redis, and the API.
+
+### **Run the App with Docker**
+```bash
+docker-compose up --build
+```
+
+### **Stop Containers**
+
+```bash
+docker-compose down
+```
+
+### **Check Running Containers**
+
+```bash
+docker ps
+```
+
+### **View Logs**
+
+```bash
+docker logs <container_id>
+```
+
+## 📌 MongoDB Commands
+
+**To interact with MongoDB inside Docker, use the following commands:**
+
+## 1️⃣ Open MongoDB Shell
+
+### **Run this command to access the MongoDB container:**
+
+```bash
+docker exec -it mongo mongosh -u admin -p password --authenticationDatabase admin
+```
+### Replace admin and password with the actual credentials used in docker-compose.yml.
+
+## **2️⃣ View Available Databases**
+
+```bash
+show dbs;
+```
+
+## 3️⃣ **Switch to Your Database**
+
+### Replace mydatabase with your actual database name:
+
+```bash
+use mydatabase;
+```
+
+## 4️⃣ **List Collections**
+```bash
+show collections;
+```
+
+## 5️⃣ **View Data Inside a Collection**
+
+### Retrieve all documents from a collection (e.g., users):
+```bash
+db.users.find().pretty();
+```
+Replace users with the actual collection name.
 
 ## Installation
 

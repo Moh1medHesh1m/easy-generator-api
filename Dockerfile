@@ -26,7 +26,7 @@ COPY . .
 RUN yarn build
 
 # Expose the application and Redis ports
-EXPOSE 3000 6379
+EXPOSE 3200 6379
 
 # Start both Redis and the NestJS app
 CMD redis-server --daemonize no & node dist/main.js
